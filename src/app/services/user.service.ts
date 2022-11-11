@@ -1,31 +1,36 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class DivisaService {
-  url1:string="https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency?have=";
-  url2:string="&want=";
-  url3:string="&amount=";
-  urlFinal!:string;
+@Injectable()
+export class UserService {
+  url1: string =
+    'https://data.mongodb-api.com/app/data-jspse/endpoint/data/v1/action/findOne';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
-  public getConversor(from:string, to:string, value:string){
+  public getUsuarios(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-      
-      'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com',
-      'X-RapidAPI-Key': '7ec67eb2d0msh43f92748b398b96p1ea4a3jsnefc96ab50089',
+        // 'Content-Type': 'application/json',
+        'Access-Control-Request-Headers': '*',
+        'api-key':
+          'qx351DrY0GwIJcIr4BVR5ZZ9urXLQHTiktIFtSgPDhUFZse8LEg1YhVTYKm61VTe',
       }),
-      }
-      
-      this.urlFinal= this.url1+from+this.url2+to+this.url3+value;
+    };
 
-    return this._http.get(this.urlFinal, httpOptions);
+    //"collection": 'Usuarios',
+    //"database": 'Db1',
 
+    const body = {
+      dataSource: 'FIndAnswers',
+      database: 'sample_mflix',
+      collection: 'comments',
+    };
 
-
+    console.log(body);
+    console.log(this.url1);
+    console.log(httpOptions);
+    return this._http.post(this.url1, null, httpOptions);
   }
 }
